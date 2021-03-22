@@ -1,0 +1,35 @@
+image: registry.mo-siemens.com/mocca/mo-build-env-java-tools:V0.9.9
+
+stages:
+  - master
+
+############# Deploy tdb-coordinator on dev & qa environment #############
+.setup: &setup |
+  if [ ${CI_COMMIT_REF_SLUG} == "master" ]
+  then
+     mkdir reports
+     chmod 777 reports
+     newman --version
+     npm install -g newman-reporter-htmlextra
+     #newman run Api_test_postman_collection.json  -e Api_test_postman_environment.json -d data3.json  --reporters cli,htmlextra,junit --reporter-htmlextra-export ./reports/testreport.html --reporter-junit-export report.xml
+     #newman run DataApi_Postman_collection.json  -e API_dev_postman_environment.json -d data3.json  --reporters cli,htmlextra,junit --reporter-htmlextra-export ./reports/devreport.html --reporter-junit-export report.xml
+     newman run DataApi_Test_Symphony_postman_collection.json  -e DataApi_Test_Symphony_postman_environment.json -d data2.json  --reporters cli,htmlextra,junit --reporter-htmlextra-export ./reports/symphonyreport.html --reporter-junit-export report.xml
+
+     exit 0
+  fi
+
+
+postman_tests:
+  stage: master
+  tags:
+    - ITS-TDB
+  script:
+    - *setup
+  artifacts:
+    when: always
+    paths:
+      - reports/testreport.html
+      - reports/devreport.html
+      - reports/symphonyreport.html
+    reports:
+      junit: report.xml

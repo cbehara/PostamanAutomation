@@ -1,0 +1,57 @@
+[
+ {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "IntersectionStatus",
+    "LOCODE": "00-HQ-TCC",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2021-01-18T01:20:47.362Z",
+    "FROM_TIME": "2020-12-21T01:20:47.362Z",
+    "TO_TIME": "2021-01-20T01:20:47.362Z"
+  },
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "EnvironmentSensor_Data",
+    "LOCODE": "00-HQ-TCC",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2021-01-18T01:20:47.362Z",
+    "FROM_TIME": "2020-12-21T01:20:47.362Z",
+    "TO_TIME": "2021-01-20T01:20:47.362Z"
+  },
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "IntersectionDescription",
+    "LOCODE": "00-HQ-TCC",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2021-01-18T01:20:47.362Z",
+    "FROM_TIME": "2020-12-21T01:20:47.362Z",
+    "TO_TIME": "2021-01-20T01:20:47.362Z"
+  },
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "RawTrafficDataBlock_Signalgroupvalue",
+    "LOCODE": "00-HQ-TCC",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2021-01-18T01:20:47.362Z",
+    "FROM_TIME": "2020-12-21T01:20:47.362Z",
+    "TO_TIME": "2021-01-20T01:20:47.362Z"
+  },
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "TrafficData_detector_currentValue",
+    "LOCODE": "00-HQ-TCC",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2021-01-18T01:20:47.362Z",
+    "FROM_TIME": "2020-12-21T01:20:47.362Z",
+    "TO_TIME": "2021-01-20T01:20:47.362Z"
+  },
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "RawTrafficDataBlock_Detectoredge",
+    "LOCODE": "00-HQ-TCC",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2021-01-18T01:20:47.362Z",
+    "FROM_TIME": "2020-12-21T01:20:47.362Z",
+    "TO_TIME": "2021-01-20T01:20:47.362Z"
+  }
+  
+]

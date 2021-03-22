@@ -1,0 +1,84 @@
+[
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "IntersectionStatus",
+    "LOCODE": "DE-BY-NUL",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2020-05-20T01:20:47.362Z",
+    "FROM_TIME": "2020-05-21T01:20:47.362Z",
+    "TO_TIME": "2020-06-15T01:20:47.362Z"
+  },
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "IntersectionDescription",
+    "LOCODE": "DE-BY-NUL",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2020-05-20T01:20:47.362Z",
+    "FROM_TIME": "2020-05-21T01:20:47.362Z",
+    "TO_TIME": "2020-06-15T01:20:47.362Z"
+  },
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "IntersectionFeature",
+    "LOCODE": "DE-BY-NUL",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2020-05-20T01:20:47.362Z",
+    "FROM_TIME": "2020-05-21T01:20:47.362Z",
+    "TO_TIME": "2020-06-15T01:20:47.362Z"
+  },
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "Subsystem_Data",
+    "LOCODE": "DE-BW-FDH",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2020-05-20T01:20:47.362Z",
+    "FROM_TIME": "2020-05-21T01:20:47.362Z",
+    "TO_TIME": "2020-06-15T01:20:47.362Z"
+  },
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "Subsystem_Description",
+    "LOCODE": "DE-BW-FDH",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2020-05-20T01:20:47.362Z",
+    "FROM_TIME": "2020-03-20T01:20:47.362Z",
+    "TO_TIME": "2020-05-20T01:20:47.362Z"
+  },
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "TrafficData_detectorGroup_Description",
+    "LOCODE": "DE-BY-NUL",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2020-05-20T01:20:47.362Z",
+    "FROM_TIME": "2020-05-21T01:20:47.362Z",
+    "TO_TIME": "2020-06-15T01:20:47.362Z"
+  },
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "TrafficData_detectorGroup_currentValue",
+    "LOCODE": "DE-BW-FDH",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2020-05-20T01:20:47.362Z",
+    "FROM_TIME": "2020-05-21T01:20:47.362Z",
+    "TO_TIME": "2020-06-15T01:20:47.362Z"
+  },
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "RawTrafficDataBlock_Signalgroupvalue",
+    "LOCODE": "DE-HB-AAA",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2020-05-20T01:20:47.362Z",
+    "FROM_TIME": "2020-05-21T01:20:47.362Z",
+    "TO_TIME": "2020-06-15T01:20:47.362Z"
+  },
+
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "NamedValue_Raw_Values",
+    "LOCODE": "DE-HB-AAA",
+    "FROM_TIME1": "2019-10-08T01:20:47.368Z",
+    "TO_TIME1": "2020-05-20T01:20:47.362Z",
+    "FROM_TIME": "2020-05-21T01:20:47.362Z",
+    "TO_TIME": "2020-06-15T01:20:47.362Z"
+  }
+]

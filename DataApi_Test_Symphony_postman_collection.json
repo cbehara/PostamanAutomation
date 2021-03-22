@@ -1,0 +1,736 @@
+{
+	"info": {
+		"_postman_id": "2ccade4b-a95f-4434-afc0-75c94e5eca0d",
+		"name": "DataApi_Test_Symphony",
+		"description": "This collection which contains IntermedaiteData and MetaData API services \n\nIntermedaiteData:\n1.POST-Subscribe The Topic\n2.GET-All Subscriptions Data\n3.GET-One Subscription Data\n4.GET-Data As per Subscription Key\n5.DELETE-Subscription By ID\n\nMetaData:\n1.GetAll_TMS_Records\n2.Get_TMS_ByLocode\n3.Get_Objects_ByLocode\n4.Get_SpecificObect_ByLocode",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "v1",
+			"item": [
+				{
+					"name": "OnlineData",
+					"item": [
+						{
+							"name": "Subscribe The Topic",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"//->1.Verify the status code in response body\r",
+											"pm.test(\"Successful POST request\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200,504]);\r",
+											"});\r",
+											"\r",
+											"//->2.Verify the Header is present or not \r",
+											"pm.test(\"Content-Type header is present\", function () {\r",
+											"    pm.response.to.have.header(\"Content-Type\");\r",
+											"});\r",
+											"    \r",
+											"//->3.Verify the response should be successfull\r",
+											"pm.test(\"response should be okay to process\", function () { \r",
+											"    pm.response.to.not.be.error; \r",
+											"    pm.response.to.not.have.jsonBody(\"error\"); \r",
+											"});\r",
+											"\r",
+											"\r",
+											"//->6.print the json response \r",
+											"var jsonData = pm.response.json(); \r",
+											"console.log(\"Length of json response data =\" +jsonData.length);\r",
+											"\r",
+											"//->7.Verify the Response Time \r",
+											"pm.test(\"Response time is less than 30000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(30000);\r",
+											"});\r",
+											"//->7.Verify the Response Size\r",
+											"pm.test(\"Response size is less than 2MB\", function () {\r",
+											"    pm.expect(pm.response.responseSize).to.be.below(2000000);\r",
+											"});\r",
+											"\r",
+											"//->8.Verify the Response  data \r",
+											"var jsonData = pm.response.json(); \r",
+											"\r",
+											"pm.test(\"Response is not null\", function () { \r",
+											"        pm.expect(jsonData).to.not.equal(null);\r",
+											"    });\r",
+											"\r",
+											"\r",
+											"//->9.print the json response \r",
+											"var jsonData = pm.response.json(); \r",
+											"console.log(jsonData)\r",
+											"\r",
+											"//->10.json data parsing \r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"key\", jsonData.dataEndpoint.key);\r",
+											"postman.setEnvironmentVariable(\"id\", jsonData.id);\r",
+											"postman.setEnvironmentVariable(\"consumerId\", jsonData.consumerId);\r",
+											"postman.setEnvironmentVariable(\"category\", jsonData.category);\r",
+											"postman.setEnvironmentVariable(\"OBJECT_TYPE\", jsonData.filters[0].value);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"category\": \"{{category}}\",\r\n  \"filters\": [\r\n    {\r\n      \"type\": \"OBJECT_TYPE\",\r\n      \"value\": \"{{OBJECT_TYPE}}\"\r\n    },\r\n    {\r\n      \"type\": \"LOCODE\",\r\n      \"value\": \"{{LOCODE}}\"\r\n    }\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/api/subscription/:consumerId/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"api",
+										"subscription",
+										":consumerId",
+										""
+									],
+									"variable": [
+										{
+											"key": "consumerId",
+											"type": "string",
+											"value": "{{consumerid2}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Subscriptions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"//->1.Verify the status code in response body",
+											"pm.test(\"Request was successful and Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"}); ",
+											"",
+											"//->2.Verify the Header is present or not ",
+											"pm.test(\"Content-Type header is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"    ",
+											"//->3.Verify the response should be successfull",
+											"pm.test(\"response should be okay to process\", function () { ",
+											"    pm.response.to.not.be.error; ",
+											"    pm.response.to.not.have.jsonBody(\"error\"); ",
+											"});",
+											" ",
+											"// ->4.Verify the response must be valid json body ",
+											"pm.test(\"response must be valid and have a json body\", function () {",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"});",
+											"",
+											"//->5. Verify the Response headers ",
+											"pass = true;",
+											"fail = false;",
+											"",
+											"if (responseCode.code === 200 || responseCode.code === 201) {",
+											"    tests[\"Request Succesfully Sent\"] = pass;",
+											"",
+											"    headers = {",
+											"        \"Content-Type\": \"application/json\"",
+											"    }",
+											"",
+											"    for (var i in headers) {",
+											"        result = postman.getResponseHeader(i);",
+											"        if (headers[i] === result)",
+											"            tests[i + \" header value is present\"] = pass;",
+											"        else",
+											"            tests[i + \" header value is not present\"] = fail;",
+											"",
+											"    }",
+											"    ",
+											"}",
+											"",
+											"});",
+											"",
+											"//->6.print the json response ",
+											"var jsonData = pm.response.json(); ",
+											"console.log(jsonData);",
+											"",
+											"//->7.Verify the Response Time ",
+											"pm.test(\"Response time is less than 30000ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+											"});",
+											"//->7.Verify the Response Size",
+											"pm.test(\"Response size is less than 2MB\", function () {",
+											"    pm.expect(pm.response.responseSize).to.be.below(2000000);",
+											"});",
+											"",
+											"//->8.Verify the Response  data ",
+											"var jsonData = pm.response.json(); ",
+											"/*",
+											"pm.test(\"Response is not null\", function () { ",
+											"        pm.expect(jsonData).to.not.equal(null);",
+											"    });",
+											"",
+											"pm.test(\"consumerId field is present in response\", function () { ",
+											"        pm.expect(jsonData[0].consumerId).is.to.equal(\"FlowAI\"); ",
+											"    });",
+											"pm.test(\"category field is present in response\", function () { ",
+											"        pm.expect(jsonData[0].category).is.to.equal(\"TRAFFIC\"); ",
+											"    });",
+											"    ",
+											"pm.test(\"Filter field is present in response\", function () { ",
+											"        pm.expect(jsonData[0].filters[0].type).is.to.equal(\"OBJECT_TYPE\");",
+											"    });",
+											"    ",
+											"pm.test(\"dataEndpoint field is present in response\", function () { ",
+											"        pm.expect(jsonData[0].dataEndpoint.type).is.to.equal(\"REST\");",
+											"    });  ",
+											"*/",
+											"//->9.print the json response length",
+											"var jsonData = pm.response.json(); ",
+											"console.log(\"The Length of Json Response =\"+ jsonData.length);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/api/subscription/:consumerId",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"api",
+										"subscription",
+										":consumerId"
+									],
+									"variable": [
+										{
+											"key": "consumerId",
+											"value": "{{consumerid2}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One Subscription Data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"//->1.Verify the status code in response body",
+											"pm.test(\"Request was successful and Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"}); ",
+											"",
+											"//->2.Verify the Header is present or not ",
+											"pm.test(\"Content-Type header is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"    ",
+											"//->3.Verify the response should be successfull",
+											"pm.test(\"response should be okay to process\", function () { ",
+											"    pm.response.to.not.be.error; ",
+											"    pm.response.to.not.have.jsonBody(\"error\"); ",
+											"});",
+											" ",
+											"// ->4.Verify the response must be valid json body ",
+											"pm.test(\"response must be valid and have a json body\", function () {",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"});",
+											"",
+											"//->5. Verify the Response headers ",
+											"pass = true;",
+											"fail = false;",
+											"",
+											"if (responseCode.code === 200 || responseCode.code === 201) {",
+											"    tests[\"Request Succesfully Sent\"] = pass;",
+											"",
+											"    headers = {",
+											"        \"Content-Type\": \"application/json\"",
+											"    }",
+											"",
+											"    for (var i in headers) {",
+											"        result = postman.getResponseHeader(i);",
+											"        if (headers[i] === result)",
+											"            tests[i + \" header value is present\"] = pass;",
+											"        else",
+											"            tests[i + \" header value is not present\"] = fail;",
+											"",
+											"    }",
+											"    ",
+											"}",
+											"",
+											"});",
+											"",
+											"//->6.print the json response ",
+											"var jsonData = pm.response.json(); ",
+											"console.log(jsonData);",
+											"",
+											"//->7.Verify the Response Time ",
+											"pm.test(\"Response time is less than 30000ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+											"});",
+											"//->7.Verify the Response Size",
+											"pm.test(\"Response size is less than 15KB\", function () {",
+											"    pm.expect(pm.response.responseSize).to.be.below(15000);",
+											"});",
+											"",
+											"//->8.Verify the Response  data ",
+											"var jsonData = pm.response.json(); ",
+											"pm.test(\"Response is not null\", function () { ",
+											"        pm.expect(jsonData).to.not.equal(null);",
+											"    });",
+											"/*",
+											"pm.test(\"consumerId field is present in response\", function () { ",
+											"        pm.expect(jsonData.consumerId).is.to.equal(\"FlowAI\"); ",
+											"    });",
+											"pm.test(\"category field is present in response\", function () { ",
+											"        pm.expect(jsonData.category).is.to.equal(\"TRAFFIC\"); ",
+											"    });",
+											"    ",
+											"pm.test(\"Filter field is present in response\", function () { ",
+											"        pm.expect(jsonData.filters[0].type).is.to.equal(\"OBJECT_TYPE\");",
+											"    });",
+											"    ",
+											"pm.test(\"dataEndpoint field is present in response\", function () { ",
+											"        pm.expect(jsonData.dataEndpoint.type).is.to.equal(\"REST\");",
+											"    });  ",
+											"    ",
+											"*/",
+											"//->9.print the json response length",
+											"var jsonData = pm.response.json(); ",
+											"console.log(\"The Length of Json Response =\"+ jsonData.length);",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/api/subscription/:consumerId/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"api",
+										"subscription",
+										":consumerId",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "consumerId",
+											"value": "{{consumerid2}}"
+										},
+										{
+											"key": "id",
+											"value": "{{id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get records as per the category and Key",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"//->1.Verify the status code in response body\r",
+											"pm.test(\"Successful POST request\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200,204]);\r",
+											"});\r",
+											"\r",
+											"//->2.Verify the Header is present or not \r",
+											"pm.test(\"Content-Type header is present\", function () {\r",
+											"    pm.response.to.have.header(\"Content-Type\");\r",
+											"});\r",
+											"\r",
+											"//->7.Verify the Response Time \r",
+											"pm.test(\"Response time is less than 30000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(30000);\r",
+											"});\r",
+											"//->8.Verify the Response Size\r",
+											"pm.test(\"Response size is less than 2MB\", function () {\r",
+											"    pm.expect(pm.response.responseSize).to.be.below(5000000);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/api/data/:consumerId/:category/:key",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"api",
+										"data",
+										":consumerId",
+										":category",
+										":key"
+									],
+									"variable": [
+										{
+											"key": "consumerId",
+											"value": "{{consumerid2}}"
+										},
+										{
+											"key": "category",
+											"value": "{{category}}"
+										},
+										{
+											"key": "key",
+											"value": "{{key}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get records as per the category and Key by size",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"//->1.Verify the status code in response body\r",
+											"pm.test(\"Successful POST request\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200,204]);\r",
+											"});\r",
+											"\r",
+											"//->2.Verify the Header is present or not \r",
+											"pm.test(\"Content-Type header is present\", function () {\r",
+											"    pm.response.to.have.header(\"Content-Type\");\r",
+											"});\r",
+											"\r",
+											"//->7.Verify the Response Time \r",
+											"pm.test(\"Response time is less than 30000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(30000);\r",
+											"});\r",
+											"//->8.Verify the Response Size\r",
+											"pm.test(\"Response size is less than 2MB\", function () {\r",
+											"    pm.expect(pm.response.responseSize).to.be.below(5000000);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/api/data/:consumerId/:category/:key?size=3000000",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"api",
+										"data",
+										":consumerId",
+										":category",
+										":key"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "3000000"
+										}
+									],
+									"variable": [
+										{
+											"key": "consumerId",
+											"value": "{{consumerid2}}"
+										},
+										{
+											"key": "category",
+											"value": "{{category}}"
+										},
+										{
+											"key": "key",
+											"value": "{{key}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Subscription By ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"//->1.Verify the status code in response body\r",
+											"pm.test(\"Request was successful and Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"}); \r",
+											"\r",
+											"//->2.Verify the Header is present or not \r",
+											"pm.test(\"Content-Type header is present\", function () {\r",
+											"    pm.response.to.have.header(\"Content-Type\");\r",
+											"\r",
+											"    \r",
+											"//->3.Verify the response should be successfull\r",
+											"pm.test(\"response should be okay to process\", function () { \r",
+											"    pm.response.to.not.be.error; \r",
+											"    pm.response.to.not.have.jsonBody(\"error\"); \r",
+											"});\r",
+											" \r",
+											"// ->4.Verify the response must be valid json body \r",
+											"pm.test(\"response must be valid and have a json body\", function () {\r",
+											"     // assert that the status code is 200\r",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+											"     // assert that the response has a valid JSON body\r",
+											"     pm.response.to.be.withBody;\r",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+											"});\r",
+											"\r",
+											"//->5. Verify the Response headers \r",
+											"pass = true;\r",
+											"fail = false;\r",
+											"\r",
+											"if (responseCode.code === 200 || responseCode.code === 201) {\r",
+											"    tests[\"Request Succesfully Sent\"] = pass;\r",
+											"\r",
+											"    headers = {\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    }\r",
+											"\r",
+											"    for (var i in headers) {\r",
+											"        result = postman.getResponseHeader(i);\r",
+											"        if (headers[i] === result)\r",
+											"            tests[i + \" header value is present\"] = pass;\r",
+											"        else\r",
+											"            tests[i + \" header value is not present\"] = fail;\r",
+											"\r",
+											"    }\r",
+											"    \r",
+											"}\r",
+											"\r",
+											"});\r",
+											"\r",
+											"//->6.print the json response \r",
+											"var jsonData = pm.response.json(); \r",
+											"console.log(jsonData);\r",
+											"\r",
+											"//->7.Verify the Response Time \r",
+											"pm.test(\"Response time is less than 30000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(30000);\r",
+											"});\r",
+											"//->8.Verify the Response Size\r",
+											"pm.test(\"Response size is less than 15KB\", function () {\r",
+											"    pm.expect(pm.response.responseSize).to.be.below(15000);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//->9.print the json response length\r",
+											"var jsonData = pm.response.json(); \r",
+											"console.log(\"The Length of Json Response =\"+ jsonData.length);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/api/subscription/:consumerId/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"api",
+										"subscription",
+										":consumerId",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "consumerId",
+											"value": "{{consumerid2}}"
+										},
+										{
+											"key": "id",
+											"value": "{{id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "oauth2",
+						"oauth2": [
+							{
+								"key": "accessToken",
+								"value": "{{onlinedataToken}}",
+								"type": "string"
+							},
+							{
+								"key": "tokenType",
+								"value": "bearer",
+								"type": "string"
+							},
+							{
+								"key": "addTokenTo",
+								"value": "header",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const getTokenRequest = {",
+									"  url: 'https://iam.synapses.testing.its-siemens.com/auth/realms/its/protocol/openid-connect/token',",
+									"  method: 'POST',",
+									"  header: 'Content-Type:application/x-www-form-urlencoded',",
+									"  body: {",
+									"    mode: 'application/x-www-form-urlencoded',",
+									"    raw: \"client_id=curl&grant_type=password&password=admin&scope=email&username=tdb-user\"",
+									"  }",
+									"};",
+									"",
+									"pm.sendRequest(getTokenRequest, (err, response) => {",
+									"    let jsonResponse = response.json(),",
+									"        newAccessToken = jsonResponse.access_token;",
+									"",
+									"    console.log({ err, jsonResponse, newAccessToken })",
+									"",
+									"    pm.environment.set('onlinedataToken', newAccessToken);",
+									"    pm.variables.set('onlinedataToken', newAccessToken);",
+									"}); "
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			],
+			"description": "Folder for v1"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

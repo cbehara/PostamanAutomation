@@ -1,0 +1,21 @@
+[
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "EnvironmentSensor_Data",
+    "LOCODE": "DE-NI-WOB",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2020-09-07T01:20:47.362Z",
+    "FROM_TIME": "2020-12-22T01:20:47.362Z",
+    "TO_TIME": "2021-01-21T01:20:47.362Z"
+  },
+  
+  {
+    "category": "TRAFFIC",
+    "OBJECT_TYPE": "EnvironmentSensor_Description",
+    "LOCODE": "DE-NI-WOB",
+    "FROM_TIME1": "2019-10-08T01:20:47.362Z",
+    "TO_TIME1": "2020-09-07T01:20:47.362Z",
+    "FROM_TIME": "2020-12-22T01:20:47.362Z",
+    "TO_TIME": "2021-01-21T01:20:47.362Z"
+  }
+]
